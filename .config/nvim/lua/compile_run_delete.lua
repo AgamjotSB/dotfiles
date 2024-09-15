@@ -35,7 +35,8 @@ function Crd()
         end
     elseif file_extension == "py" then
         local file_name = vim.fn.expand("%:p")
-        vim.fn.system("kitty sh -c \"'" .. "python " .. file_name .. "';read -p 'Press Enter to exit ...'\"")
+        -- vim.fn.system("kitty -T nvimexec sh -c \'python3 \"".. file_name .."\"; read -p \"Press Enter\" \' ")
+        vim.fn.system("kitty -T nvimexec sh -c 'python3 \"" .. file_name .. '"; read -p "Press Enter" \' ')
     elseif file_extension == "go" then
         local file_name = vim.fn.expand("%:p")
         local executable_name = vim.fn.expand("%:p:r")
