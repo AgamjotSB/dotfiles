@@ -35,23 +35,21 @@ vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 
 -- none-ls/null-ls maps
-vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+-- vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
 
 --primagen remaplua stolen
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 -- next greatest remap ever : asbjornHaland
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "<leader>p", [["+p]])
 
-
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 
 vim.keymap.set("n", "gj", "j")
 vim.keymap.set("n", "gk", "k")
-
