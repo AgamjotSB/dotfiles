@@ -56,6 +56,17 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # Source aliases
 source "${ZDOTDIR}/aliases.zsh"
 
+# Environment variables
+
+export npm_config_prefix="$HOME/.local"
+export ANDROID_HOME=$HOME/Android/Sdk/
+export PATH="$(go env GOPATH)/bin:$PATH"
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+# export $ANDROID_AVD_HOME=$HOME/.config/.android/avd
+export QT_QPA_PLATFORM="wayland;xcb"
+
+
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"

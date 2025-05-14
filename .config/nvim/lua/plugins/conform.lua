@@ -20,9 +20,13 @@ return {
 			cpp = { "clang-format" },
 			lua = { "stylua" },
 			java = { "clang-format" },
+            python = { "black" },
+
+            html = { "prettierd", "prettier", stop_after_first = true },
+			css = { "prettierd", "prettier", stop_after_first = true },
+			json = { "prettierd", "prettier", stop_after_first = true },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
-			typescript = { "prettier", "prettier", stop_after_first = true },
-			python = { "black" },
+			typescript = { "prettierd", "prettier", stop_after_first = true },
 		},
 		formatters = {
 			prettierd = {

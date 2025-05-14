@@ -1,7 +1,10 @@
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
+alias ls=lsd
 alias grep='grep --color=auto'
 alias vim='nvim'
 alias ll='ls -la'
 alias la='ls -a'
+alias lt='ls --tree'
 alias uninstall='yay -Rcsu'
 alias javavim='NVIM_APPNAME=nvim-javavim nvim'
+alias lvim='NVIM_APPNAME=nvim-lazyvim nvim'

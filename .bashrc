@@ -18,3 +18,6 @@ PS1='[\u@\h \W]\$ '
 
 # Keep at end of config (zoxide)
 eval "$(zoxide init bash)"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
