@@ -4,5 +4,5 @@ return {
     event = "InsertEnter",
     opts = { check_ts = true },
   },
-  { "echasnovski/mini.pairs", enabled = false },
+  { "nvim-mini/mini.pairs", enabled = false },
 }

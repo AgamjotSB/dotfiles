@@ -10,5 +10,6 @@ vim.o.breakindent = true
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 -- vim.g.lazyvim_python_lsp = "pyright"
+vim.g.lazyvim_eslint_auto_format = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4

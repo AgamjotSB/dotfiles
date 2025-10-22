@@ -25,6 +25,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 # zinit light Aloxaf/fzf-tab
+# zinit light "undg/zsh-nvm-lazy-load"
 
 # Adding Snippets
 zinit snippet OMZP::git
@@ -56,17 +57,16 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # Source aliases
 source "${ZDOTDIR}/aliases.zsh"
 
-# Environment variables
-
-export npm_config_prefix="$HOME/.local"
-export ANDROID_HOME=$HOME/Android/Sdk/
-export PATH="$(go env GOPATH)/bin:$PATH"
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-# export $ANDROID_AVD_HOME=$HOME/.config/.android/avd
-export QT_QPA_PLATFORM="wayland;xcb"
-
+# options
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
+eval "$(thefuck --alias)"
