@@ -15,6 +15,12 @@ return {
             },
           },
         },
+        vtsls = {
+          enabled = true,
+        },
+        ts_ls = {
+          enabled = false,
+        },
       },
     },
   },

@@ -4,6 +4,9 @@ return {
     opts = {
       flavour = "mocha",
       transparent_background = true,
+      float = {
+        transparent = true,
+      },
     },
   },
   {
@@ -16,11 +19,12 @@ return {
   {
     "folke/tokyonight.nvim",
     opts = {
+      transparent = true,
       style = "night",
     },
   },
 
   { "LazyVim/LazyVim", opts = {
-    colorscheme = "tokyonight",
+    colorscheme = "catppuccin",
   } },
 }
