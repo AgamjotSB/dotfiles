@@ -37,11 +37,14 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export ANDROID_AVD_HOME="$HOME/.android/avd"
 
-#Python
+# Python
 export PYTHONHISTFILE="$XDG_DATA_HOME/python/.python_history"
 
 # Gradle
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+
+# Flutter Web
+export CHROME_EXECUTABLE="/usr/bin/zen-browser"
 
 # Qt (Wayland/X11 fallback)
 export QT_QPA_PLATFORM="wayland;xcb"

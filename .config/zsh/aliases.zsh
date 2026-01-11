@@ -9,3 +9,5 @@ alias uninstall='yay -Rcsu'
 alias javavim='NVIM_APPNAME=nvim-javavim nvim'
 alias lvim='NVIM_APPNAME=nvim-lazyvim nvim'
 alias fsinfo='lsblk --list --output path,size,type,mountpoints,partuuid,label,fstype'
+alias ff="fvm flutter"
+alias fd="fvm dart"
