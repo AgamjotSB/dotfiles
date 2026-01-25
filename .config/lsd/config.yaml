@@ -1,0 +1,15 @@
+blocks:
+  - permission
+  - user
+  - group
+  - size
+  - date
+  - git
+  - name
+
+color:
+  when: auto
+  # Possible values: default, custom
+  # When "custom" is set, lsd will look in the config directory for `colors.yaml`.
+  theme: default
+date: +%a %_d %b %y %_I:%M%P
