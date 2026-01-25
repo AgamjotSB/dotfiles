@@ -44,7 +44,7 @@ export PYTHONHISTFILE="$XDG_DATA_HOME/python/.python_history"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 # Flutter Web
-export CHROME_EXECUTABLE="/usr/bin/zen-browser"
+export CHROME_EXECUTABLE="/usr/bin/chromium"
 
 # Qt (Wayland/X11 fallback)
 export QT_QPA_PLATFORM="wayland;xcb"

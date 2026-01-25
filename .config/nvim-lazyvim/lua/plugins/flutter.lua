@@ -23,15 +23,31 @@ return {
   },
 
   config = function(_, opts)
-    -- Get the extended capabilities from LazyVim's completion engine (blink.cmp)
-    -- This enables snippets, auto-imports, and other advanced LSP features.
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-    -- Inject them into the flutter-tools options
-    opts.lsp = opts.lsp or {}
-    opts.lsp.capabilities = capabilities
-
     vim.env.CHROME_EXECUTABLE = "zen-browser"
+
+    local flutter_utils = require("flutter-tools.utils")
+    flutter_utils.open_command = function()
+      local chromium = vim.fn.exepath("chromium")
+      local zen = vim.fn.exepath("zen-browser")
+      return "bash",
+        {
+          "-c",
+          string.format(
+            [=[
+            url=$1
+            if [[ "$url" == *"127.0.0.1"* ]]; then
+              "%s" --app="$url"
+            else
+              "%s" "$url"
+            fi
+          ]=],
+            chromium,
+            zen
+          ),
+          "--",
+        }
+    end
+
     require("flutter-tools").setup(opts)
 
     local function is_flutter_win_open(win_name)
@@ -45,13 +61,17 @@ return {
       return false
     end
 
+    local visual_debug_open = false
+    local inspect_widget_open = false
+
     local wk = require("which-key")
     wk.add({
       { "<leader>F", group = "Flutter", icon = "" },
-      { "<leader>Fc", "<cmd>FlutterLogClear<cr>", icon = "", desc = "Clear Log" },
-      { "<leader>Fd", "<cmd>FlutterDevTools<cr>", icon = "", desc = "Dev Tools" },
-      { "<leader>FD", "<cmd>FlutterDevices<cr>", icon = "󰾰", desc = "Devices" },
-      { "<leader>Fe", "<cmd>FlutterEmulators<cr>", icon = "", desc = "Emulators" },
+      { "<leader>Fc", "<cmd>FlutterLogClear<cr>", icon = " ", desc = "Clear Log" },
+      { "<leader>Fd", "<cmd>FlutterDevTools<cr>", icon = " ", desc = "Dev Tools" },
+      { "<leader>FD", "<cmd>FlutterDevices<cr>", icon = "󰾰 ", desc = "Devices" },
+      { "<leader>Fe", "<cmd>FlutterEmulators<cr>", icon = " ", desc = "Emulators" },
+      { "<leader>Fg", "<cmd>FlutterPubGet<cr>", icon = " ", desc = "Pub Get" },
       {
         "<leader>Fl",
         function()
@@ -76,6 +96,32 @@ return {
         end,
         desc = function()
           return is_flutter_win_open("Flutter Outline") and "Disable Outline" or "Enable Outline"
+        end,
+      },
+      {
+        "<leader>Fi",
+        function()
+          inspect_widget_open = not inspect_widget_open
+          vim.cmd("FlutterInspectWidget")
+        end,
+        icon = function()
+          return inspect_widget_open and { icon = " ", color = "green" } or { icon = " ", color = "yellow" }
+        end,
+        desc = function()
+          return inspect_widget_open and "Disable Inspector" or "Enable Inspector"
+        end,
+      },
+      {
+        "<leader>Fv",
+        function()
+          visual_debug_open = not visual_debug_open
+          vim.cmd("FlutterVisualDebug")
+        end,
+        icon = function()
+          return visual_debug_open and { icon = " ", color = "green" } or { icon = " ", color = "yellow" }
+        end,
+        desc = function()
+          return visual_debug_open and "Disable Visual Debug" or "Enable Visual Debug"
         end,
       },
     })
