@@ -5,6 +5,7 @@ return {
       xml = { "xmlformatter" },
       java = { "clang-format" },
       dart = { "dart_format" },
+      python = { "ruff_format" },
     },
   },
 }

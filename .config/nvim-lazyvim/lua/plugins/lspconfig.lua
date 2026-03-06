@@ -21,6 +21,9 @@ return {
         ts_ls = {
           enabled = false,
         },
+        ruff = {
+          enabled = false,
+        },
       },
     },
   },
