@@ -1,12 +1,25 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.icons" }, -- if you use standalone mini plugins
-  ---@module 'render-markdown'
-  ---@type render.md.UserConfig
   opts = {
+    -- render_modes = { "n", "v", "V", "i", "t", "c" },
+    render_modes = true,
+    win_options = {
+      conceallevel = {
+        rendered = 0,
+        default = 1,
+      },
+    },
+    code = {
+      conceal_delimiters = false,
+      language_border = "▄",
+      language_left = "▟",
+      language_right = "▙",
+      border = "thin",
+    },
     heading = {
-      sign = true,
-      icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+      -- icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+      border = true,
+      border_virtual = true,
     },
     checkbox = {
       enabled = true,
