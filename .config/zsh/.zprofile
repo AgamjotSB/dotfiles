@@ -1,9 +1,5 @@
 if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
     # Start the daemon and export the necessary variables
-    eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-    export SSH_AUTH_SOCK
-    
-    exec start-hyprland
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+    exec start-hyprland &> /tmp/hyprland.log
 fi
-
-# [[ $(tty) == /dev/tty1 ]]&&exec Hyprland

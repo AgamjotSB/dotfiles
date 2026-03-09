@@ -6,7 +6,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 
 # ZSH
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export HISTFILE="$ZDOTDIR/.zsh_history"
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export HISTSIZE=1000
 export SAVEHIST=$HISTSIZE
 export HISTDUP=erase
@@ -46,6 +46,8 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
 export ANDROID_HOME="$XDG_DATA_HOME/android/sdk"
 export ANDROID_AVD_HOME="$XDG_DATA_HOME/android/avd"
+export ANDROID_EMULATOR_HOME="$XDG_DATA_HOME/android/emulator"
+export ANDROID_PREFS_ROOT="$XDG_DATA_HOME/android"
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
