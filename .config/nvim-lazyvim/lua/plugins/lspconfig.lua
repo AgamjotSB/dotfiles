@@ -6,14 +6,25 @@ return {
         enabled = false,
       },
       servers = {
-        basedpyright = {
+        ty = {
+          init_options = {},
           settings = {
-            basedpyright = {
-              analysis = {
-                typeCheckingMode = "standard",
+            ty = {
+              configuration = {
+                rules = {},
               },
             },
           },
+        },
+        basedpyright = {
+          enabled = false,
+          -- settings = {
+          --   basedpyright = {
+          --     analysis = {
+          --       typeCheckingMode = "standard",
+          --     },
+          --   },
+          -- },
         },
         vtsls = {
           enabled = true,
@@ -22,7 +33,9 @@ return {
           enabled = false,
         },
         ruff = {
-          enabled = false,
+          init_options = {
+            settings = {},
+          },
         },
       },
     },
