@@ -27,6 +27,8 @@ export PATH="$GOPATH/bin:$PATH"
 
 # Python
 export PYTHONHISTFILE="$XDG_DATA_HOME/python/.python_history"
+# uv
+export PATH="/home/agamjotsb/.local/share/../bin:$PATH"
 
 # node and pnpm
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node/.node_repl_history"
