@@ -2,29 +2,32 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      diagnostics = {
+        virtual_text = false, -- for tiny-inline-diagnostic lua
+      },
       inlay_hints = {
         enabled = false,
       },
       servers = {
-        ty = {
-          init_options = {},
+        -- ty = {
+        --   init_options = {},
+        --   settings = {
+        --     ty = {
+        --       configuration = {
+        --         rules = {},
+        --       },
+        --     },
+        --   },
+        -- },
+        basedpyright = {
+          enabled = true,
           settings = {
-            ty = {
-              configuration = {
-                rules = {},
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = "standard",
               },
             },
           },
-        },
-        basedpyright = {
-          enabled = false,
-          -- settings = {
-          --   basedpyright = {
-          --     analysis = {
-          --       typeCheckingMode = "standard",
-          --     },
-          --   },
-          -- },
         },
         vtsls = {
           enabled = true,
