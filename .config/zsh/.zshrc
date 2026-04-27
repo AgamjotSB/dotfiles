@@ -24,8 +24,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-# zinit light Aloxaf/fzf-tab
-# zinit light "undg/zsh-nvm-lazy-load"
+zinit light Aloxaf/fzf-tab
 
 # Adding Snippets
 zinit snippet OMZP::git
@@ -35,8 +34,13 @@ zinit snippet OMZP::command-not-found
 
 [[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh"
 [[ -d "$XDG_STATE_HOME/zsh" ]] || mkdir -p "$XDG_STATE_HOME/zsh"
+
 # Load completions
 autoload -Uz compinit && compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
+if (( $+commands[aws_completer] )); then
+    autoload -Uz bashcompinit && bashcompinit
+    complete -C "$(which aws_completer)" aws
+fi
 
 # zinit docs, use after calling compinit for performance boost
 zinit cdreplay -q
@@ -52,9 +56,8 @@ bindkey '^n' history-search-forward
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-# zstyle ':completion:*' menu no
-# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-# zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':completion:*' menu no # for fzf-tab
+zstyle ':fzf-tab:complete:(cd|z|lsd):*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
 
 # Source aliases
 source "${ZDOTDIR}/aliases.zsh"
