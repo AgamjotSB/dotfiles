@@ -28,7 +28,7 @@ zinit light zsh-users/zsh-completions
 
 # Load completions
 local zcompdump_file="$XDG_CACHE_HOME/zsh/zcompdump"
-autoload -Uz compinit && compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
+autoload -Uz compinit && compinit -d "$zcompdump_file"
 # Compile zcompdump in the background for faster startup
 if [[ ! -f "${zcompdump_file}.zwc" || "$zcompdump_file" -nt "${zcompdump_file}.zwc" ]]; then
     zcompile "$zcompdump_file" &!
@@ -39,11 +39,8 @@ unset zcompdump_file
 # zinit cdreplay -q
 # not required now as no compdef is added before compinit
 
-# fzf-tab MUST be loaded after compinit, but before syntax-highlighting/autosuggestions
-
 # async plugins (turbo mode), 'wait' to load in background, 'lucid' to not print 'Loaded plugin'
 zinit wait lucid for \
-    Aloxaf/fzf-tab \
     OMZP::git \
     OMZP::sudo \
     OMZP::archlinux \
@@ -65,10 +62,10 @@ bindkey '^n' history-search-forward
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no # for fzf-tab
+zstyle ':completion:*' menu select
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-dirs-first true
-zstyle ':fzf-tab:complete:(cd|z|lsd):*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
+# zstyle ':fzf-tab:complete:(cd|z|lsd):*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
 
 # Source aliases
 source "${ZDOTDIR}/aliases.zsh"
@@ -83,20 +80,11 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 # Shell integrations
-
-# Smart-cache FZF
-local fzf_cache="$XDG_CACHE_HOME/zsh/fzf.zsh"
-if [[ ! -f "$fzf_cache" || ${commands[fzf]} -nt "$fzf_cache" ]]; then
-    fzf --zsh >! "$fzf_cache"
-fi
-source "$fzf_cache"
-
 # Smart-cache Zoxide
 local zoxide_cache="$XDG_CACHE_HOME/zsh/zoxide.zsh"
 if [[ ! -f "$zoxide_cache" || ${commands[zoxide]} -nt "$zoxide_cache" ]]; then
     zoxide init zsh >! "$zoxide_cache"
 fi
 source "$zoxide_cache"
-
-# eval "$(fzf --zsh)"
+unset zoxide_cache
 # eval "$(zoxide init zsh)"
