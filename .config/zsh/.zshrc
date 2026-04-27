@@ -20,30 +20,39 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Add in Powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-# Adding zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
+# Load extra completions before running compinit
 zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
-
-# Adding Snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::command-not-found
 
 [[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh"
 [[ -d "$XDG_STATE_HOME/zsh" ]] || mkdir -p "$XDG_STATE_HOME/zsh"
 
 # Load completions
+local zcompdump_file="$XDG_CACHE_HOME/zsh/zcompdump"
 autoload -Uz compinit && compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
-if (( $+commands[aws_completer] )); then
-    autoload -Uz bashcompinit && bashcompinit
-    complete -C "$(which aws_completer)" aws
+# Compile zcompdump in the background for faster startup
+if [[ ! -f "${zcompdump_file}.zwc" || "$zcompdump_file" -nt "${zcompdump_file}.zwc" ]]; then
+    zcompile "$zcompdump_file" &!
 fi
+unset zcompdump_file
 
 # zinit docs, use after calling compinit for performance boost
-zinit cdreplay -q
+# zinit cdreplay -q
+# not required now as no compdef is added before compinit
+
+# fzf-tab MUST be loaded after compinit, but before syntax-highlighting/autosuggestions
+
+# async plugins (turbo mode), 'wait' to load in background, 'lucid' to not print 'Loaded plugin'
+zinit wait lucid for \
+    Aloxaf/fzf-tab \
+    OMZP::git \
+    OMZP::sudo \
+    OMZP::archlinux \
+    OMZP::command-not-found \
+    zsh-users/zsh-autosuggestions \
+    zsh-users/zsh-syntax-highlighting \
+    atload'if (( $+commands[aws_completer] )); then autoload -Uz bashcompinit && bashcompinit && complete -C ${commands[aws_completer]} aws; fi' \
+    zdharma-continuum/null
+
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
@@ -57,6 +66,8 @@ bindkey '^n' history-search-forward
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no # for fzf-tab
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-dirs-first true
 zstyle ':fzf-tab:complete:(cd|z|lsd):*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
 
 # Source aliases
@@ -72,6 +83,20 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 # Shell integrations
-eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
-eval "$(thefuck --alias)"
+
+# Smart-cache FZF
+local fzf_cache="$XDG_CACHE_HOME/zsh/fzf.zsh"
+if [[ ! -f "$fzf_cache" || ${commands[fzf]} -nt "$fzf_cache" ]]; then
+    fzf --zsh >! "$fzf_cache"
+fi
+source "$fzf_cache"
+
+# Smart-cache Zoxide
+local zoxide_cache="$XDG_CACHE_HOME/zsh/zoxide.zsh"
+if [[ ! -f "$zoxide_cache" || ${commands[zoxide]} -nt "$zoxide_cache" ]]; then
+    zoxide init zsh >! "$zoxide_cache"
+fi
+source "$zoxide_cache"
+
+# eval "$(fzf --zsh)"
+# eval "$(zoxide init zsh)"
