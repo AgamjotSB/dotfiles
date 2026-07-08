@@ -4,40 +4,52 @@ return {
     opts = {
       diagnostics = {
         virtual_text = false, -- for tiny-inline-diagnostic lua
+        update_in_insert = true,
       },
       inlay_hints = {
         enabled = false,
       },
       servers = {
-        -- ty = {
-        --   init_options = {},
-        --   settings = {
-        --     ty = {
-        --       configuration = {
-        --         rules = {},
-        --       },
-        --     },
-        --   },
-        -- },
+        ty = {
+          enabled = false,
+          init_options = {},
+          settings = {
+            ty = {
+              diagnosticMode = "on",
+              configuration = {
+                rules = {},
+              },
+            },
+          },
+        },
+
         basedpyright = {
           enabled = true,
           settings = {
             basedpyright = {
+              -- using ruff import organizer
+              disableOrganizeImports = true,
+              -- disableLanguageServices = true,
               analysis = {
                 typeCheckingMode = "standard",
               },
             },
           },
         },
-        vtsls = {
-          enabled = true,
-        },
-        ts_ls = {
+
+        zuban = {
           enabled = false,
         },
+        pyrefly = {
+          enabled = false,
+        },
+
         ruff = {
           init_options = {
-            settings = {},
+            settings = {
+              diagnostics = true,
+              fixAll = true,
+            },
           },
         },
       },

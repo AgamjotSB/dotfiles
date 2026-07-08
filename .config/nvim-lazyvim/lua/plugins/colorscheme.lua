@@ -9,6 +9,7 @@ return {
       },
     },
   },
+
   {
     "ellisonleao/gruvbox.nvim",
     opts = {
@@ -22,6 +23,10 @@ return {
       transparent = true,
       style = "night",
     },
+  },
+
+  {
+    "flazz/vim-colorschemes", -- tty themes from vim
   },
 
   { "LazyVim/LazyVim", opts = {

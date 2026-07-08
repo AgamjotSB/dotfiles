@@ -18,6 +18,14 @@ return {
         },
         opts = { skip = true },
       },
+      {
+        filter = {
+          event = "lsp",
+          kind = "progress",
+          find = "basedpyright",
+        },
+        opts = { skip = true },
+      },
     },
   },
 }
