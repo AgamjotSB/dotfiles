@@ -13,8 +13,8 @@ set notification-error-fg "#151515"
 set notification-bg "#90A959"
 set notification-fg "#151515"
 
-set highlight-color "#F4BF75AA"
-set highlight-active-color "#6A9FB5AA"
+set highlight-color "rgba(244, 191, 117, 0.67)" #F4BF75 AA
+set highlight-active-color "rgba(106, 159, 181, 0.67)" #6A9FB5 AA
 
 set completion-highlight-fg "#151515" #02
 set completion-highlight-bg "#90A959" #0C
