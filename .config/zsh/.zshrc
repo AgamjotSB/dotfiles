@@ -20,6 +20,17 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Add in Powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
+# Smart-cache pnpm completion
+local pnpm_comp_dir="$XDG_CACHE_HOME/zsh/completions"
+[[ -d "$pnpm_comp_dir" ]] || mkdir -p "$pnpm_comp_dir"
+fpath=("$pnpm_comp_dir" $fpath)
+
+local pnpm_comp="$pnpm_comp_dir/_pnpm"
+if [[ ! -f "$pnpm_comp" || ${commands[pnpm]} -nt "$pnpm_comp" ]]; then
+    pnpm completion zsh >! "$pnpm_comp"
+fi
+unset pnpm_comp pnpm_comp_dir
+
 # Load extra completions before running compinit
 zinit light zsh-users/zsh-completions
 
@@ -58,11 +69,15 @@ zinit wait lucid for \
 # bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey '^z' undo
+bindkey '^ ' forward-word # ctrl + space for completing word-by-word
+bindkey '^[[Z' reverse-menu-complete
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu select
+zstyle ':completion:*' menu yes
+# zstyle ':completion:*' menu select=0 interactive
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-dirs-first true
 # zstyle ':fzf-tab:complete:(cd|z|lsd):*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
